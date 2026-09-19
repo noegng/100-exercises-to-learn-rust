@@ -15,15 +15,15 @@ use std::{fmt::format, ptr::null};
 // tests can't access private or `pub(crate)` items.
 pub struct Order{
     product_name: String,
-    quantity: i32,
-    unit_price: i32,
+    quantity: u32,
+    unit_price: u32,
 }
 
 impl Order {
-    pub fn new(product_name: String, quantity: i32, unit_price: i32 ) -> Order {
+    pub fn new(product_name: String, quantity: u32, unit_price: u32 ) -> Order {
         validate_name(&product_name);
-        validate_quantity(quantity);
-        validate_price(unit_price);
+        validate_quantity(&quantity);
+        validate_price(&unit_price);
 
     Order {
         product_name,
@@ -36,11 +36,11 @@ pub fn product_name(&self) -> &String{
     &self.product_name
 }
 
-pub fn quantity(&self) -> &i32 {
+pub fn quantity(&self) -> &u32 {
     &self.quantity
 }
 
-pub fn unit_price(&self) -> &i32 {
+pub fn unit_price(&self) -> &u32 {
     &self.unit_price
 }
 
@@ -48,19 +48,18 @@ pub fn set_product_name(&mut self, new_name: String){
     validate_name(&new_name);
     self.product_name = new_name;
 }
-pub fn set_quantity(&mut self, new_quantity: i32){
-    validate_quantity(new_quantity);
+pub fn set_quantity(&mut self, new_quantity: u32){
+    validate_quantity(&new_quantity);
     self.quantity = new_quantity;
 }
 
-pub fn set_unit_price(&mut self, new_unit_price: i32){
-    validate_price(new_unit_price);
+pub fn set_unit_price(&mut self, new_unit_price: u32){
+    validate_price(&new_unit_price);
     self.unit_price = new_unit_price;
 }
 
-pub fn total(&self) -> i32 {
-let total: i32 = &self.quantity * &self.unit_price;
-return total;
+pub fn total(&self) -> u32 {
+    self.quantity * self.unit_price
 }
 
 
@@ -72,14 +71,14 @@ if (product_name.is_empty() || product_name.len() > 300){
     }
 }
 
-fn validate_quantity(quantity: i32){
-    if (quantity <= 0 ){
+fn validate_quantity(quantity: &u32){
+    if (quantity == &0 ){
         panic!("Quantity can't be negative or 0")
     }
 }
 
-fn validate_price(unit_price: i32){
-    if (unit_price <= 0){
+fn validate_price(unit_price: &u32){
+    if (unit_price == &0){
         panic!("Unit price must be strictly greater than 0!")
     }
 }
