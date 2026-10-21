@@ -7,6 +7,8 @@ pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
 
+
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct Ticket {
     pub title: TicketTitle,
@@ -27,6 +29,15 @@ impl TicketStore {
             tickets: Vec::new(),
         }
     }
+
+
+    pub fn to_dos(&self) -> Vec<&Ticket> { 
+        self.tickets
+        .iter()
+        .filter(|ticket| ticket.status == Status::ToDo)
+        .collect()
+    }
+
 
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
