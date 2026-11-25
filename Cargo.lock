@@ -374,6 +374,7 @@ dependencies = [
 name = "outro_08"
 version = "0.1.0"
 dependencies = [
+ "patch",
  "tokio",
 ]
 
